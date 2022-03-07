@@ -1,7 +1,5 @@
 package com.hemebiotech.analytics;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,16 +23,7 @@ public class AnalyticsCounter {
 		System.out.printf(String.valueOf(symptomMap));
 
 		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-
-		symptomMap.forEach((key, value) -> {
-			try {
-				writer.write(key + ": " + value.toString() + "\n");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-
-		writer.close();
+		WriteSymptomDataFromMap writer = new WriteSymptomDataFromMap(symptomMap);
+		writer.WriteSymptoms();
 	}
 }
