@@ -1,5 +1,6 @@
 package com.hemebiotech.analytics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,17 +11,9 @@ public class AnalyticsCounter {
 		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
 		List<String> symptomsInFileList = reader.GetSymptoms();
 
-		HashMap<String, Integer> symptomMap = new HashMap<String, Integer>();
+		CountSymptomDataFromList counter = new CountSymptomDataFromList((ArrayList<String>) symptomsInFileList);
 
-		for (String symptomString : symptomsInFileList) {
-			if (!symptomMap.containsKey(symptomString)) {
-				symptomMap.put(symptomString, 1);
-			} else {
-				symptomMap.put(symptomString, symptomMap.get(symptomString) + 1);
-			}
-		}
-
-		System.out.printf(String.valueOf(symptomMap));
+		HashMap<String, Integer> symptomMap = counter.CountSymptoms();
 
 		// next generate output
 		WriteSymptomDataFromMap writer = new WriteSymptomDataFromMap(symptomMap);
