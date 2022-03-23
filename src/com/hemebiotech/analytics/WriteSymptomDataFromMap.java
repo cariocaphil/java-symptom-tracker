@@ -22,7 +22,7 @@ public class WriteSymptomDataFromMap implements ISymptomWriter {
 	}
 	
 	@Override
-	public void WriteSymptoms() throws IOException {
+	public void writeSymptoms() throws IOException {
 		FileWriter writer = new FileWriter ("result.out");
 
 		symptomMap.forEach((key, value) -> {

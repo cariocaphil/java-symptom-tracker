@@ -7,5 +7,5 @@ public interface ISymptomCounter {
     /**
      * @return a map of symptoms with their respective occurences
      */
-    HashMap<String, Integer> CountSymptoms ();
+    HashMap<String, Integer> countSymptoms();
 }

@@ -20,7 +20,7 @@ public class CountSymptomDataFromList implements ISymptomCounter {
 	}
 	
 	@Override
-	public HashMap<String, Integer> CountSymptoms() {
+	public HashMap<String, Integer> countSymptoms() {
 		HashMap<String, Integer> symptomMap = new HashMap<>();
 
 		for (String symptomString : symptomList) {
