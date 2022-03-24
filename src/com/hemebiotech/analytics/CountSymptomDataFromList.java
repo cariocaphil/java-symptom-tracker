@@ -1,7 +1,9 @@
 package com.hemebiotech.analytics;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Simple brute force implementation
@@ -21,7 +23,8 @@ public class CountSymptomDataFromList implements ISymptomCounter {
 	
 	@Override
 	public HashMap<String, Integer> countSymptoms() {
-		HashMap<String, Integer> symptomMap = new HashMap<>();
+		Collections.sort(symptomList);
+		LinkedHashMap<String, Integer> symptomMap = new LinkedHashMap<>();
 
 		for (String symptomString : symptomList) {
 			if (!symptomMap.containsKey(symptomString)) {
