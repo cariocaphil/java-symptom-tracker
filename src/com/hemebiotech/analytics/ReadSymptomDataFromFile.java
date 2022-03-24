@@ -30,6 +30,9 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 			try {
 				BufferedReader reader = new BufferedReader (new FileReader(filepath));
 				String line = reader.readLine();
+				if (line == null) {
+					throw new EmptyFileException();
+				}
 				
 				while (line != null) {
 					result.add(line);
@@ -38,6 +41,8 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (EmptyFileException e) {
+				e.printStackTrace(e.getMessage());
 			}
 		}
 		
