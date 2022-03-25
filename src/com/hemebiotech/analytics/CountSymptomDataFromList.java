@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
  */
 public class CountSymptomDataFromList implements ISymptomCounter {
 
-	private ArrayList<String> symptomList;
+	private final ArrayList<String> symptomList;
 
 	/**
 	 *

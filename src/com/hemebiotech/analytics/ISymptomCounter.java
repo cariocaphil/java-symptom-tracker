@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public interface ISymptomCounter {
     /**
-     * @return a map of symptoms with their respective occurences
+     * @return a map of symptoms with their respective occurrences
      */
     HashMap<String, Integer> countSymptoms();
 }

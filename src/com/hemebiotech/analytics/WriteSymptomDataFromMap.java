@@ -10,20 +10,22 @@ import java.util.HashMap;
  */
 public class WriteSymptomDataFromMap implements ISymptomWriter {
 
-	private HashMap<String, Integer> symptomMap;
-
+	private final HashMap<String, Integer> symptomMap;
+	private final String outputFile;
 
 	/**
 	 *
-	 * @param symptomMap a map that tracks number of occurences per symptom
+	 * @param symptomMap a map that tracks number of occurrences per symptom
+	 * @param outputFile the name of an output file
 	 */
-	public WriteSymptomDataFromMap(HashMap<String, Integer> symptomMap) {
+	public WriteSymptomDataFromMap(HashMap<String, Integer> symptomMap, String outputFile) {
 		this.symptomMap = symptomMap;
+		this.outputFile = outputFile;
 	}
 	
 	@Override
 	public void writeSymptoms() throws IOException {
-		FileWriter writer = new FileWriter ("result.out");
+		FileWriter writer = new FileWriter (outputFile);
 
 		symptomMap.forEach((key, value) -> {
 			try {

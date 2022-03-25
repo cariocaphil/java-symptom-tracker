@@ -1,22 +1,35 @@
 package com.hemebiotech.analytics;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class AnalyticsCounter {
-	
-	public static void main(String args[]) throws Exception {
+
+		private final IOFileManager fileSpecifications = new IOFileManager();
+		private List<String> symptomsInFileList = new ArrayList<>();
+		HashMap<String, Integer> symptomMap = new HashMap<>();
+
 		// first get input
-		ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
-		List<String> symptomsInFileList = reader.getSymptoms();
+		void readDataFromFile(){
+			ISymptomReader reader = new ReadSymptomDataFromFile(fileSpecifications.getInputFile());
+		 	symptomsInFileList = reader.getSymptoms();
+		}
 
-		ISymptomCounter counter = new CountSymptomDataFromList((ArrayList<String>) symptomsInFileList);
-
-		HashMap<String, Integer> symptomMap = counter.countSymptoms();
+		// sort and count
+		void countData() {
+			ISymptomCounter counter = new CountSymptomDataFromList((ArrayList<String>) symptomsInFileList);
+			symptomMap = counter.countSymptoms();
+		}
 
 		// next generate output
-		ISymptomWriter writer = new WriteSymptomDataFromMap(symptomMap);
-		writer.writeSymptoms();
-	}
+		void writeOutput() {
+			ISymptomWriter writer = new WriteSymptomDataFromMap(symptomMap, fileSpecifications.getOutputFile());
+			try {
+				writer.writeSymptoms();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 }
