@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple brute force implementation
+ * ReadSymptomDataFromFile implements the ISymptomReader interface
+ * and reads data from a given file (identified via filePath)
+ * and returns a list of symptom-strings.
+ *
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
@@ -20,6 +23,11 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
     this.filepath = filepath;
   }
 
+  /**
+   * A list of all symptoms obtained from a text file data source, duplicates are
+   * @return a list of all symptoms
+   * possible/probable
+   */
   @Override
   public List<String> getSymptoms() {
     ArrayList<String> result = new ArrayList<>();

@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * Simple brute force implementation
+ * WriteSymptomDataFromMap Class implements the ISymptomWriter interface and
+ * writes the data of symptom occurrences contained in a given symptom map
+ * to a designated outputFile.
  */
 public class WriteSymptomDataFromMap implements ISymptomWriter {
 
@@ -21,6 +23,10 @@ public class WriteSymptomDataFromMap implements ISymptomWriter {
     this.outputFile = outputFile;
   }
 
+  /**
+   * writeSymptoms () method results in the data being printed and closes the writer upon completion.
+   * @throws IOException if stream to file cannot be written to.
+   */
   @Override
   public void writeSymptoms() throws IOException {
     FileWriter writer = new FileWriter(outputFile);
