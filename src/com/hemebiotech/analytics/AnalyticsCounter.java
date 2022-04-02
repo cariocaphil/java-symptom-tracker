@@ -10,7 +10,6 @@ import java.util.List;
 
 public class AnalyticsCounter {
 
-  private final IOFileManager fileManager = new IOFileManager();
   private List<String> symptomsInFileList = new ArrayList<>();
   private HashMap<String, Integer> symptomMap = new HashMap<>();
 
@@ -19,7 +18,7 @@ public class AnalyticsCounter {
    * transforms the symptom-data contained there into a list
    */
   public void readDataFromFile() {
-    ISymptomReader reader = new ReadSymptomDataFromFile(fileManager.getInputFile());
+    ISymptomReader reader = new ReadSymptomDataFromFile(Constants.inputFileName);
     symptomsInFileList = reader.getSymptoms();
   }
 
@@ -36,7 +35,7 @@ public class AnalyticsCounter {
    * prints the analyzed data into an output file
    */
   public void writeOutput() {
-    ISymptomWriter writer = new WriteSymptomDataFromMap(symptomMap, fileManager.getOutputFile());
+    ISymptomWriter writer = new WriteSymptomDataFromMap(symptomMap, Constants.outputFileName);
     try {
       writer.writeSymptoms();
     } catch (IOException e) {
