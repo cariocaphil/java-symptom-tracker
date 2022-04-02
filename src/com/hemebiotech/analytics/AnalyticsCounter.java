@@ -7,9 +7,9 @@ import java.util.List;
 
 public class AnalyticsCounter {
 
-  private final IOFileManager fileSpecifications = new IOFileManager();
+  private final IOFileManager fileManager = new IOFileManager();
   private List<String> symptomsInFileList = new ArrayList<>();
-  HashMap<String, Integer> symptomMap = new HashMap<>();
+  private HashMap<String, Integer> symptomMap = new HashMap<>();
 
   // first get input
   void readDataFromFile() {
