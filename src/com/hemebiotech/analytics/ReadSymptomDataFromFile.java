@@ -7,41 +7,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple brute force implementation
+ * ReadSymptomDataFromFile implements the ISymptomReader interface
+ * and reads data from a given file (identified via filePath)
+ * and returns a list of symptom-strings.
  *
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
-	private String filepath;
-	
-	/**
-	 * 
-	 * @param filepath a full or partial path to file with symptom strings in it, one per line
-	 */
-	public ReadSymptomDataFromFile (String filepath) {
-		this.filepath = filepath;
-	}
-	
-	@Override
-	public List<String> GetSymptoms() {
-		ArrayList<String> result = new ArrayList<String>();
-		
-		if (filepath != null) {
-			try {
-				BufferedReader reader = new BufferedReader (new FileReader(filepath));
-				String line = reader.readLine();
-				
-				while (line != null) {
-					result.add(line);
-					line = reader.readLine();
-				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
+  private final String filepath;
+
+  /**
+   * @param filepath a full or partial path to file with symptom strings in it, one per line
+   */
+  public ReadSymptomDataFromFile(String filepath) {
+    this.filepath = filepath;
+  }
+
+  /**
+   * A list of all symptoms obtained from a text file data source, duplicates are
+   * @return a list of all symptoms
+   * possible/probable
+   */
+  @Override
+  public List<String> getSymptoms() {
+    ArrayList<String> result = new ArrayList<>();
+
+    if (filepath != null) {
+      try {
+        BufferedReader reader = new BufferedReader(new FileReader(filepath));
+        String line = reader.readLine();
+        if (line == null) {
+          throw new EmptyFileException();
+        }
+
+        while (line != null) {
+          result.add(line);
+          line = reader.readLine();
+        }
+        reader.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (EmptyFileException e) {
+        e.printStackTrace(e.getMessage());
+      }
+    }
+
+    return result;
+  }
 
 }

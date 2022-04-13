@@ -1,43 +1,45 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+/**
+ * AnalyticsCounter orchestrates the interplay between a reader of data, a counter, and a report-output writer class.
+ */
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0;	// initialize to 0
-	private static int rashCount = 0;		// initialize to 0
-	private static int pupilCount = 0;		// initialize to 0
-	
-	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
 
-		int i = 0;	// set i to 0
-		int headCount = 0;	// counts headaches
-		while (line != null) {
-			i++;	// increment i
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headCount++;
-				System.out.println("number of headaches: " + headCount);
-			}
-			else if (line.equals("rush")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
-			}
+  private List<String> symptomsInFileList = new ArrayList<>();
+  private HashMap<String, Integer> symptomMap = new HashMap<>();
 
-			line = reader.readLine();	// get another symptom
-		}
-		
-		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
-	}
+  /**
+   * reads the source input file and
+   * transforms the symptom-data contained there into a list
+   */
+  public void readDataFromFile() {
+    ISymptomReader reader = new ReadSymptomDataFromFile(Constants.inputFileName);
+    symptomsInFileList = reader.getSymptoms();
+  }
+
+  /**
+   * sorts the list of symptoms and
+   * counts their occurrences
+   */
+  public void countData() {
+    ISymptomCounter counter = new CountSymptomDataFromList((ArrayList<String>) symptomsInFileList);
+    symptomMap = counter.countSymptoms();
+  }
+
+  /**
+   * prints the analyzed data into an output file
+   */
+  public void writeOutput() {
+    ISymptomWriter writer = new WriteSymptomDataFromMap(symptomMap, Constants.outputFileName);
+    try {
+      writer.writeSymptoms();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }
